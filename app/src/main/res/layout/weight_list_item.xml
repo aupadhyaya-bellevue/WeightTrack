@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="32dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/lblCalendar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.15"
+        android:drawableEnd="@drawable/ic_calendar"
+        android:gravity="start"
+        app:boxBackgroundColor="@color/white" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/lblWeightEntryDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.35"
+        android:gravity="start"
+        app:boxBackgroundColor="@color/white" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/lblWeightEntry"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25"
+        android:gravity="end"
+        app:boxBackgroundColor="@color/white" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/lblWeightEntryLbs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.10"
+        android:hint="@string/lbl_lbs"
+        android:gravity="center"
+        app:boxBackgroundColor="@color/white" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/lblWeightDetails"
+        style="?attr/materialIconButtonOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.10"
+        android:drawableEnd="@drawable/ic_arrow_forward"
+        android:gravity="center"
+        app:boxBackgroundColor="@color/black" />
+
+</LinearLayout>

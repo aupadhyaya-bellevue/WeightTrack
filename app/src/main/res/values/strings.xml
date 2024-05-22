@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Weight Track</string>
+    <string name="homeMenu">Home</string>
+    <string name="addMenu">Add</string>
+    <string name="settingsMenu">Settings</string>
+    <string name="historyMenu">History</string>
+    <string name="add_weight_text">Add weight</string>
+    <string name="lbl_beginning_weight">Beginning Weight:</string>
+    <string name="lbl_lbs">lbs.</string>
+    <string name="lbl_settings_heading">Application Settings</string>
+    <string name="lbl_date">Date:</string>
+    <string name="lbl_in">in.</string>
+    <string name="lbl_height">Height</string>
+    <string name="lbl_target_weight">Target Weight:</string>
+    <string name="lbl_target_date">Target Date:</string>
+    <string name="lbl_save">Save</string>
+    <string name="lbl_weight_entry_title">Enter Weight</string>
+    <string name="lbl_weight">Weight</string>
+    <string name="lbl_weight_history_title">Weight History</string>
+    <string name="lbl_gender">Gender</string>
+    <string name="lbl_welcome_user">Welcome User!</string>
+    <string name="lbl_current_weight">CURRENT WEIGHT</string>
+    <string name="lbl_bmi">BMI</string>
+    <string name="weight_loss_to_date">WEIGHT LOSS TO DATE</string>
+    <string name="capture_image">Capture Image</string>
+    <string name="weight_entry_image">Weight entry image</string>
+    <string name="weight_entry_details">Weight Entry Details</string>
+    <string name="back_to_history">Back To History</string>
+    <string name="delete_entry">Delete Entry</string>
+</resources>
