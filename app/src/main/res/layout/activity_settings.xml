@@ -175,24 +175,32 @@
                 android:layout_weight="0.35"
                 android:clickable="false"
                 android:focusable="false"
+                android:gravity="center_vertical"
                 android:hint="@string/lbl_gender"
+                android:layout_marginTop="15dp"
                 android:maxLines="1" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtGender"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+            <RadioGroup
+                android:id="@+id/radioGender"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.65"
-                app:boxBackgroundColor="@color/white">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:checked="true"
+                    app:useMaterialThemeColors="true"
+                    android:text="@string/male"/>
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    app:useMaterialThemeColors="true"
+                    android:text="@string/female"/>
+            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
@@ -208,7 +216,7 @@
                 android:autofillHints="Target Weight:"
                 android:clickable="false"
                 android:focusable="false"
-                android:gravity="bottom"
+                android:layout_gravity="center_vertical"
                 android:hint="@string/lbl_target_weight" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -294,39 +302,4 @@
                 android:text="@string/lbl_save" />
         </LinearLayout>
     </LinearLayout>
-
-    <!--
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="16dp"
-                app:menu="@menu/bottom_menu" />
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionBar"
-            android:layout_width="160dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:backgroundTint="@color/white"
-            android:contentDescription="@string/add_weight_text"
-            android:src="@drawable/ic_add"
-            app:layout_anchor="@+id/bottomAppBar"
-            app:layout_anchorGravity="top|center" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    //-->
 </androidx.constraintlayout.widget.ConstraintLayout>

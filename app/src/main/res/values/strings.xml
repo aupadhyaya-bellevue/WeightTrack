@@ -27,4 +27,6 @@
     <string name="weight_entry_details">Weight Entry Details</string>
     <string name="back_to_history">Back To History</string>
     <string name="delete_entry">Delete Entry</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>

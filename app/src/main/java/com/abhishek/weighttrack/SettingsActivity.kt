@@ -5,6 +5,8 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -26,12 +28,11 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var txtStartDateTextEdit: TextInputLayout
     private lateinit var txtBeginningWeight: TextInputLayout
     private lateinit var txtHeight: TextInputLayout
-    private lateinit var txtGender: TextInputLayout
+    private lateinit var radioGender: RadioGroup
     private lateinit var txtTargetWeight: TextInputLayout
     private lateinit var txtTargetDate: TextInputLayout
     private lateinit var targetDateTextView: MaterialTextView
     private lateinit var btnSave: Button
-    private val GENDERS = arrayOf("Male", "Female")
 
     private lateinit var dbHelper: WeightTrackDBHelper
 
@@ -48,15 +49,11 @@ class SettingsActivity : AppCompatActivity() {
         txtStartDateTextEdit = findViewById(R.id.startDate)
         txtBeginningWeight = findViewById(R.id.beginningWeight)
         txtHeight = findViewById(R.id.txtHeight)
-        txtGender = findViewById(R.id.txtGender)
+        radioGender = findViewById(R.id.radioGender)
         txtTargetWeight = findViewById(R.id.targetWeight)
         txtTargetDate = findViewById(R.id.targetDate)
         targetDateTextView = findViewById(R.id.lblTargetCalendar)
         btnSave = findViewById(R.id.btnSave)
-
-
-        // Assign gender list
-        (txtGender.editText as? MaterialAutoCompleteTextView)?.setSimpleItems(GENDERS)
 
         val calendar = Calendar.getInstance()
 
@@ -107,7 +104,11 @@ class SettingsActivity : AppCompatActivity() {
             appSettings.startDate = appUtils.getDateFromString(txtStartDateTextEdit.editText?.getText().toString(), format)
             appSettings.targetWeight = txtTargetWeight.editText?.getText().toString().toFloat()
             appSettings.targetDate = appUtils.getDateFromString(txtTargetDate.editText?.getText().toString(), format)
-            appSettings.gender = txtGender.editText?.getText().toString()
+            appSettings.gender = "Male"
+            var selectedGender = radioGender.checkedRadioButtonId
+            if(selectedGender != -1) {
+                appSettings.gender = findViewById<RadioButton>(selectedGender).text.toString()
+            }
             appSettings.height = txtHeight.editText?.getText().toString().toFloat()
             appSettings.settingsAvailable = true
 
@@ -147,11 +148,11 @@ class SettingsActivity : AppCompatActivity() {
             txtTargetWeight.editText?.setText(appSettings.targetWeight.toString())
             txtTargetDate.editText?.setText(appUtils.getStringFromDate(appSettings.targetDate, dateFormat))
             val gender = appSettings.gender
-            println("========> $gender")
-            val selectedGenderPosition = if(gender.equals("Male"))  0 else 1
-            println("========> $selectedGenderPosition")
-            (txtGender.editText as? MaterialAutoCompleteTextView)?.setSimpleItems(GENDERS)
-            (txtGender.editText as? MaterialAutoCompleteTextView)?.setSelection(selectedGenderPosition)
+            if(gender.equals("Male")) {
+                radioGender.check(R.id.radioMale)
+            } else {
+                radioGender.check(R.id.radioFemale)
+            }
             txtHeight.editText?.setText(appSettings.height.toString())
         }
     }
