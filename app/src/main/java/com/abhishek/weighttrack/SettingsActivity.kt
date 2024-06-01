@@ -83,39 +83,103 @@ class SettingsActivity : AppCompatActivity() {
         // Open date picker for start and target dates
         startDateTextView.setOnClickListener {
             val datePickerDialog =
-            DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_DARK, datePicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+                DatePickerDialog(
+                    this,
+                    AlertDialog.THEME_DEVICE_DEFAULT_DARK,
+                    datePicker,
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+                )
 
             datePickerDialog.show()
         }
         targetDateTextView.setOnClickListener {
             val datePickerDialog =
-                DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_DARK, targetDatePicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+                DatePickerDialog(
+                    this,
+                    AlertDialog.THEME_DEVICE_DEFAULT_DARK,
+                    targetDatePicker,
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+                )
 
             datePickerDialog.show()
         }
 
         // Save button action listener
         btnSave.setOnClickListener {
-            var appSettings = AppSettings()
-            val appUtils = ApplicationUtils()
-            val format = "MM/dd/yyyy"
 
-            appSettings.beginningWeight = txtBeginningWeight.editText?.getText().toString().toFloat()
-            appSettings.startDate = appUtils.getDateFromString(txtStartDateTextEdit.editText?.getText().toString(), format)
-            appSettings.targetWeight = txtTargetWeight.editText?.getText().toString().toFloat()
-            appSettings.targetDate = appUtils.getDateFromString(txtTargetDate.editText?.getText().toString(), format)
-            appSettings.gender = "Male"
-            var selectedGender = radioGender.checkedRadioButtonId
-            if(selectedGender != -1) {
-                appSettings.gender = findViewById<RadioButton>(selectedGender).text.toString()
+            var formInputError = false
+            if (txtBeginningWeight.editText?.getText().toString().isEmpty()) {
+                formInputError = true
+                txtBeginningWeight.error = "Beginning weight is a required field"
+            } else if (txtBeginningWeight.editText?.getText().toString().toFloat() <= 0.0f) {
+                formInputError = true
+                txtBeginningWeight.error = "Beginning weight must be greater than zero"
+            } else {
+                txtBeginningWeight.error = ""
             }
-            appSettings.height = txtHeight.editText?.getText().toString().toFloat()
-            appSettings.settingsAvailable = true
 
-            dbHelper.updateAppSettings(appSettings)
+            if (txtStartDateTextEdit.editText?.getText().toString().isEmpty()) {
+                formInputError = true
+                txtStartDateTextEdit.error = "Start date is a required field"
+            } else {
+                txtStartDateTextEdit.error = ""
+            }
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            if (txtTargetWeight.editText?.getText().toString().isEmpty()) {
+                formInputError = true
+                txtTargetWeight.error = "Beginning weight is a required field"
+            } else if (txtTargetWeight.editText?.getText().toString().toFloat() <= 0.0f) {
+                formInputError = true
+                txtTargetWeight.error = "Target weight must be greater than zero"
+            } else {
+                txtTargetWeight.error = ""
+            }
+
+            if (txtTargetDate.editText?.getText().toString().isEmpty()) {
+                formInputError = true
+                txtTargetDate.error = "Target date is a required field"
+            } else {
+                txtTargetDate.error = ""
+            }
+
+            if (txtHeight.editText?.getText().toString().isEmpty()) {
+                formInputError = true
+                txtHeight.error = "Height is a required field"
+            } else {
+                txtHeight.error = ""
+            }
+
+            if (!formInputError) {
+                val appSettings = AppSettings()
+                val appUtils = ApplicationUtils()
+                val format = "MM/dd/yyyy"
+
+                appSettings.beginningWeight =
+                    txtBeginningWeight.editText?.getText().toString().toFloat()
+                appSettings.startDate = appUtils.getDateFromString(
+                    txtStartDateTextEdit.editText?.getText().toString(),
+                    format
+                )
+                appSettings.targetWeight = txtTargetWeight.editText?.getText().toString().toFloat()
+                appSettings.targetDate =
+                    appUtils.getDateFromString(txtTargetDate.editText?.getText().toString(), format)
+                appSettings.gender = "Male"
+                var selectedGender = radioGender.checkedRadioButtonId
+                if (selectedGender != -1) {
+                    appSettings.gender = findViewById<RadioButton>(selectedGender).text.toString()
+                }
+                appSettings.height = txtHeight.editText?.getText().toString().toFloat()
+                appSettings.settingsAvailable = true
+
+                dbHelper.updateAppSettings(appSettings)
+
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.appSettings)) { v, insets ->
@@ -142,13 +206,23 @@ class SettingsActivity : AppCompatActivity() {
         val dateFormat = "MM/dd/yyyy"
         val appUtils = ApplicationUtils()
 
-        if(appSettings.settingsAvailable) {
+        if (appSettings.settingsAvailable) {
             txtBeginningWeight.editText?.setText(appSettings.beginningWeight.toString())
-            txtStartDateTextEdit.editText?.setText(appUtils.getStringFromDate(appSettings.startDate, dateFormat))
+            txtStartDateTextEdit.editText?.setText(
+                appUtils.getStringFromDate(
+                    appSettings.startDate,
+                    dateFormat
+                )
+            )
             txtTargetWeight.editText?.setText(appSettings.targetWeight.toString())
-            txtTargetDate.editText?.setText(appUtils.getStringFromDate(appSettings.targetDate, dateFormat))
+            txtTargetDate.editText?.setText(
+                appUtils.getStringFromDate(
+                    appSettings.targetDate,
+                    dateFormat
+                )
+            )
             val gender = appSettings.gender
-            if(gender.equals("Male")) {
+            if (gender.equals("Male")) {
                 radioGender.check(R.id.radioMale)
             } else {
                 radioGender.check(R.id.radioFemale)

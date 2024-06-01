@@ -79,18 +79,35 @@ class WeightEntryActivity : AppCompatActivity() {
 
         // Save button action listener
         btnSave.setOnClickListener {
-            val weightValue = txtWeight.editText?.getText().toString().toFloat()
-            val entryDate = txtDate.editText?.getText().toString()
-            println("===========>Entry date: ${appUtils.getDateFromString(entryDate, "MM/dd/yyyy")}")
-            val weightEntry = WeightEntry(weightValue, appUtils.getDateFromString(entryDate, "MM/dd/yyyy").time, imageData)
-            dbHelper.addWeightEntry(weightEntry)
+            var formInputError = false
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            if(txtWeight.editText?.getText().toString().isEmpty()) {
+                formInputError = true
+                txtWeight.error = "Weight is a required field"
+            }
+
+            if(txtDate.editText?.getText().toString().isEmpty()) {
+                formInputError = true
+                txtDate.error = "Entry date is a required field"
+            }
+
+            if(!formInputError) {
+                val weightValue = txtWeight.editText?.getText().toString().toFloat()
+                val entryDate = txtDate.editText?.getText().toString()
+                val weightEntry = WeightEntry(
+                    weightValue,
+                    appUtils.getDateFromString(entryDate, "MM/dd/yyyy").time,
+                    imageData
+                )
+                dbHelper.addWeightEntry(weightEntry)
+
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         btnImageCapture.setOnClickListener {
-            var iCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            val iCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(iCamera, CAMERA_REQ_CODE)
         }
 
